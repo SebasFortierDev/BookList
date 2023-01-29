@@ -6,4 +6,6 @@
     <string name="statistics_bottom_menu_title">Statistics</string>
     <string name="add_menu_button">Add book</string>
     <string name="search">Search a book</string>
+    <string name="book_image">Image of the book from Google</string>
+    <string name="unknown_author">Unknown author</string>
 </resources>
