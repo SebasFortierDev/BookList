@@ -5,4 +5,5 @@
     <string name="books_bottom_menu_title">Books</string>
     <string name="statistics_bottom_menu_title">Statistics</string>
     <string name="add_menu_button">Add book</string>
+    <string name="search">Search a book</string>
 </resources>

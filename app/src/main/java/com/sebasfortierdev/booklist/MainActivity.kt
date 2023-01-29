@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.sebasfortierdev.booklist.fragments.AddBookFragment
+import com.sebasfortierdev.booklist.fragments.addBook.AddBookFragment
 import com.sebasfortierdev.booklist.fragments.BookListFragment
 import com.sebasfortierdev.booklist.fragments.ListsFragment
 import com.sebasfortierdev.booklist.fragments.StatisticsFragment

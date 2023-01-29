@@ -31,7 +31,7 @@ class GoogleBookFetchr {
     fun findGoogleBookByIsbn(isbn: String): MutableLiveData<GoogleBook?> {
         val responseLiveData: MutableLiveData<GoogleBook?> = MutableLiveData()
 
-        googleBookApi.fetchGoogleBook(isbn).enqueue(object : Callback<GoogleBookResponse> {
+        googleBookApi.search(isbn).enqueue(object : Callback<GoogleBookResponse> {
             override fun onResponse(call: Call<GoogleBookResponse>, response: Response<GoogleBookResponse>) {
                 val googleBookResponse: GoogleBookResponse? = response.body()
 
@@ -46,6 +46,18 @@ class GoogleBookFetchr {
         })
 
         return responseLiveData
+    }
+
+    private fun fetchSearchRequest(query: String): Call<GoogleBookResponse> {
+        return googleBookApi.search(query)
+    }
+
+    fun fetchSearch(search: String): MutableLiveData<List<GoogleBook>> {
+        if (search.isEmpty()) {
+            return MutableLiveData()
+        }
+
+        return fetchMetadata(fetchSearchRequest(search))
     }
 
     private fun fetchMetadata(googleBookRequest: Call<GoogleBookResponse>) : MutableLiveData<List<GoogleBook>> {
