@@ -22,6 +22,16 @@ data class GoogleBook(
         return this.volumeInfo.authors?.first()
     }
 
+    fun isbn(): String? {
+        for (industryIdentifier in this.volumeInfo.industryIdentifiers) {
+            if (industryIdentifier.type == "ISBN_13") {
+                return industryIdentifier.identifier
+            }
+        }
+
+        return null
+    }
+
     /**
      * Necessary to add a 's' after 'http' because
      * the URL we obtain from the GoogleAPI return an http url

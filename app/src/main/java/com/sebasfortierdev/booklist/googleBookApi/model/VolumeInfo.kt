@@ -5,6 +5,7 @@ data class VolumeInfo(
     var authors: List<String>?,
     var publisher: String?,
     var publishedDate: String?,
+    var industryIdentifiers: List<IndustryIdentifiers>,
     var description: String?,
     var pageCount: Int?,
     var language: String?,
