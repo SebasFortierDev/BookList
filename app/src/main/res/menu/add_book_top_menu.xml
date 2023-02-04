@@ -7,10 +7,9 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
 
-    <!-- TODO SCAN BOOK BUTTON -->
-<!--    <item-->
-<!--        android:id="@+id/scan_book"-->
-<!--        android:icon="@android:drawable/ic_menu_add"-->
-<!--        android:title="@string/add_menu_button"-->
-<!--        app:showAsAction="ifRoom|withText" />-->
+    <item
+        android:id="@+id/scan_book"
+        android:icon="@drawable/ic_scan_book"
+        android:title="@string/scan_book_button"
+        app:showAsAction="ifRoom|withText" />
 </menu>

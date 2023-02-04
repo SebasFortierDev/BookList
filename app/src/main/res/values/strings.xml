@@ -8,4 +8,7 @@
     <string name="search">Search a book</string>
     <string name="book_image">Image of the book from Google</string>
     <string name="unknown_author">Unknown author</string>
+    <string name="scan_book_button">Scan book</string>
+    <string name="addBookEmptyListText">Search or scan a book to add it!</string>
+    <string name="scan_book_message">Scan the barcode of the book</string>
 </resources>

@@ -5,7 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.View.OnClickListener
+import android.view.View.*
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -15,11 +15,22 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
+import com.sebasfortierdev.booklist.CaptureAct
 import com.sebasfortierdev.booklist.R
 import com.sebasfortierdev.booklist.googleBookApi.model.GoogleBook
 
 class AddBookFragment : Fragment() {
     private lateinit var googleBookRecyclerView: RecyclerView
+    private lateinit var addBookTextView: TextView
+
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        onScanIntentResult(result)
+    }
 
     private val addBookViewModel: AddBookViewModel by viewModels()
 
@@ -35,6 +46,7 @@ class AddBookFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_book, container, false)
 
+        addBookTextView = view.findViewById(R.id.add_book_empty_list_text)
         googleBookRecyclerView = view.findViewById(R.id.google_book_recycler_view)
         googleBookRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -43,10 +55,14 @@ class AddBookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateAddBookTextView()
+
         addBookViewModel.googleBooksLiveData.observe(
             viewLifecycleOwner
         ) { googleBooks ->
             googleBookRecyclerView.adapter = GoogleBookAdapter(googleBooks)
+            updateAddBookTextView()
         }
     }
 
@@ -70,7 +86,6 @@ class AddBookFragment : Fragment() {
             googleBookDescription.text = googleBook.shortDescription()
 
             Glide.with(this@AddBookFragment)
-//                .load(makeGoogleBookImageUrlHttps(googleBook.volumeInfo.imageLinks?.imageLink))
                 .load(googleBook.makeImageUrlHttps())
                 .placeholder(ColorDrawable(Color.GRAY))
                 .into(bookImageView)
@@ -104,6 +119,7 @@ class AddBookFragment : Fragment() {
         inflater.inflate(R.menu.add_book_top_menu, menu)
 
         val searchItem: MenuItem = menu.findItem(R.id.menu_item_search)
+        val scanButton: MenuItem = menu.findItem(R.id.scan_book)
 
         val searchView = searchItem.actionView as SearchView
 
@@ -121,6 +137,7 @@ class AddBookFragment : Fragment() {
             })
 
             setOnSearchClickListener {
+                // ...
             }
         }
     }
@@ -128,5 +145,42 @@ class AddBookFragment : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item: MenuItem = menu.findItem(R.id.add_book)
         item.isVisible = false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.scan_book -> {
+                scanCode()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun scanCode() {
+        val options = ScanOptions()
+        options.setPrompt(getString(R.string.scan_book_message))
+        options.setBeepEnabled(false)
+        options.setOrientationLocked(true)
+        options.captureActivity = CaptureAct::class.java
+
+        barcodeLauncher.launch(options)
+    }
+
+    private fun onScanIntentResult(result: ScanIntentResult) {
+        if (result.contents != null) {
+            val isbn = result.contents
+
+            // TODO get book
+
+        }
+    }
+
+    private fun updateAddBookTextView() {
+        if (addBookViewModel.googleBooksLiveData.value?.size == 0 || addBookViewModel.googleBooksLiveData.value?.size == null) {
+            addBookTextView.visibility = VISIBLE
+        } else {
+            addBookTextView.visibility = INVISIBLE
+        }
     }
 }
