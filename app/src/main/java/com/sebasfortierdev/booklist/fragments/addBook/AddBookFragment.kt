@@ -64,6 +64,12 @@ class AddBookFragment : Fragment() {
             googleBookRecyclerView.adapter = GoogleBookAdapter(googleBooks)
             updateAddBookTextView()
         }
+
+        addBookViewModel.googleBookToAddLiveData.observe(
+            viewLifecycleOwner
+        ) { googleBookToAdd ->
+            Log.d("TEST", "OBSERVER ${googleBookToAdd.toString()}")
+        }
     }
 
     private inner class GoogleBookHolder(view: View) : RecyclerView.ViewHolder(view),
@@ -92,8 +98,9 @@ class AddBookFragment : Fragment() {
         }
 
         override fun onClick(view: View?) {
-            Toast.makeText(context, googleBook.volumeInfo.title, Toast.LENGTH_SHORT).show()
-            // TODO("Open dialog")
+            addBookViewModel.googleBookToAddLiveData.value = googleBook
+
+            openAddBookDialog()
         }
     }
 
@@ -171,7 +178,8 @@ class AddBookFragment : Fragment() {
         if (result.contents != null) {
             val isbn = result.contents
 
-            // TODO get book
+            addBookViewModel.setGoogleBookToAdd(isbn)
+            openAddBookDialog()
 
         }
     }
@@ -182,5 +190,9 @@ class AddBookFragment : Fragment() {
         } else {
             addBookTextView.visibility = INVISIBLE
         }
+    }
+
+    private fun openAddBookDialog() {
+        // TODO OPEN DIALOG
     }
 }

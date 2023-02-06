@@ -1,12 +1,14 @@
 package com.sebasfortierdev.booklist.fragments.addBook
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.sebasfortierdev.booklist.googleBookApi.GoogleBookFetchr
 import com.sebasfortierdev.booklist.googleBookApi.model.GoogleBook
 
 class AddBookViewModel(app: Application) : AndroidViewModel(app) {
     val googleBooksLiveData: LiveData<List<GoogleBook>>
+    var googleBookToAddLiveData: MutableLiveData<GoogleBook?>
 
     private val googleBookFetchr = GoogleBookFetchr()
     private val mutableSearchTerm = MutableLiveData<String>()
@@ -16,6 +18,7 @@ class AddBookViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         mutableSearchTerm.value = ""
+        googleBookToAddLiveData = MutableLiveData(null)
 
         googleBooksLiveData = Transformations.switchMap(mutableSearchTerm) { searchTerm ->
             googleBookFetchr.fetchSearch(searchTerm)
@@ -24,5 +27,9 @@ class AddBookViewModel(app: Application) : AndroidViewModel(app) {
 
     fun fetchGoogleBooks(query: String = "") {
         mutableSearchTerm.value = query
+    }
+
+    fun setGoogleBookToAdd(isbn: String) {
+        googleBookToAddLiveData = googleBookFetchr.findGoogleBookByIsbn(isbn)
     }
 }

@@ -31,7 +31,9 @@ class GoogleBookFetchr {
     fun findGoogleBookByIsbn(isbn: String): MutableLiveData<GoogleBook?> {
         val responseLiveData: MutableLiveData<GoogleBook?> = MutableLiveData()
 
-        googleBookApi.search(isbn).enqueue(object : Callback<GoogleBookResponse> {
+        val isbnQuery = "isbn:$isbn"
+
+        googleBookApi.search(isbnQuery).enqueue(object : Callback<GoogleBookResponse> {
             override fun onResponse(call: Call<GoogleBookResponse>, response: Response<GoogleBookResponse>) {
                 val googleBookResponse: GoogleBookResponse? = response.body()
 
