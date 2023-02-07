@@ -5,10 +5,14 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.sebasfortierdev.booklist.googleBookApi.GoogleBookFetchr
 import com.sebasfortierdev.booklist.googleBookApi.model.GoogleBook
+import java.util.Calendar
 
 class AddBookViewModel(app: Application) : AndroidViewModel(app) {
     val googleBooksLiveData: LiveData<List<GoogleBook>>
     var googleBookToAddLiveData: MutableLiveData<GoogleBook?>
+
+    var bookStartDate: Calendar? = null
+    var bookEndDate: Calendar? = null
 
     private val googleBookFetchr = GoogleBookFetchr()
     private val mutableSearchTerm = MutableLiveData<String>()
@@ -31,5 +35,9 @@ class AddBookViewModel(app: Application) : AndroidViewModel(app) {
 
     fun setGoogleBookToAdd(isbn: String) {
         googleBookToAddLiveData = googleBookFetchr.findGoogleBookByIsbn(isbn)
+    }
+
+    fun addBook() {
+
     }
 }

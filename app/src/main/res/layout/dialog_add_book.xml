@@ -1,0 +1,103 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/book_state_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="15dp"
+        android:textStyle="bold"
+        android:text="Status"
+        />
+
+    <Spinner
+        android:id="@+id/book_state_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/book_state_label"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/book_start_date_label"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/book_state_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="15dp"
+        android:textStyle="bold"
+        android:text="Start date"
+        />
+
+    <Button
+        android:id="@+id/book_start_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+
+        android:text="Choose date"
+        app:layout_constraintStart_toEndOf="@id/book_start_date_label"
+        app:layout_constraintTop_toBottomOf="@id/book_state_spinner" />
+
+    <TextView
+        android:id="@+id/book_start_date_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/book_start_date_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="15dp"
+        android:text="Unknown"
+        />
+
+    <!-- End date   -->
+    <TextView
+        android:id="@+id/book_end_date_label"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/book_start_date_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="15dp"
+        android:textStyle="bold"
+        android:text="End date"
+        />
+
+    <Button
+        android:id="@+id/book_end_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+
+        android:text="Choose date"
+        app:layout_constraintStart_toEndOf="@id/book_end_date_label"
+        app:layout_constraintTop_toBottomOf="@id/book_start_date_value" />
+
+    <TextView
+        android:id="@+id/book_end_date_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/book_end_date_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="15dp"
+
+        android:text="Unknown"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
